@@ -5,11 +5,12 @@ This repository contains the supporting material for the paper 'Normative Divers
 ## Get Started
 
 1. Download this repository
-1. Run ```mkdir data results```
-2. [Download the required files here](https://www.dropbox.com/scl/fi/ywvdjb6g6fq9igdjz34cc/data.zip?rlkey=o1n90ipkkdrhslryjxf8xt401&st=8ipbz0lh&dl=0)
-4. Unzip the downloaded file, and move its contents to the ```data/``` folder.
-5. [Download the MIND dataset here](https://msnews.github.io/)
-6. Unzip the downloaded file, and move its contents the the ```data/MIND/``` folder.
+2. Open your Terminal in the directory of this repository
+3. Run ```mkdir data results```
+4. [Download the required files here](https://www.dropbox.com/scl/fi/ywvdjb6g6fq9igdjz34cc/data.zip?rlkey=o1n90ipkkdrhslryjxf8xt401&st=8ipbz0lh&dl=0)
+5. Unzip the downloaded file, and move its contents to the ```data/``` folder.
+6. [Download the MIND dataset here](https://msnews.github.io/)
+7. Unzip the downloaded file, and move its contents the the ```data/MIND/``` folder.
 
 #### RADio on degraded MIND Small
 
