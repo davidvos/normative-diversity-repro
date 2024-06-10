@@ -40,8 +40,8 @@ class Activation:
         return distr
 
     def calculate(self, pool, recommendation):
-        pool_affect = np.array(pool.sentiment.apply(lambda x: abs(x))).reshape(-1, 1)
-        recommendation_affect = np.array(recommendation.sentiment.apply(lambda x: abs(x))).reshape(-1, 1)
+        pool_affect = np.array([abs(x['sentiment']) for x in pool]).reshape(-1, 1)
+        recommendation_affect = np.array([abs(x['sentiment']) for x in recommendation]).reshape(-1, 1)
         # arr_pool = np.array([abs(item.sentiment) for item in pool]).reshape(-1, 1)
         # arr_recommendation = np.array([abs(item.sentiment) for item in recommendation]).reshape(-1, 1)
 

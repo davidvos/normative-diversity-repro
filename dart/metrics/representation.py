@@ -77,13 +77,16 @@ class Representation:
         sum_one_over_ranks = harmonic_number(n)
         rank = 0
         distr = {}
-        for indx, entities in enumerate(np.array(articles.entities)):
+       
+        for indx, entities in enumerate([x['enriched_entities'] for x in articles]):
             total = 0
             rank += 1
             d = defaultdict(int)
             # for each party specified in the configuration file
-            if entities:
-                persons = filter(lambda x: x['label'] == 'PERSON', entities)
+            if entities and len(entities) > 0:
+
+                persons = [x for x in entities if x['label'] == 'PERSON']
+                
                 for person in persons:
                     if 'party' in person and person['party']:
                         d[person['party'][0]] += len(person['spans'])
@@ -101,10 +104,10 @@ class Representation:
         return distr
 
     def calculate(self, pool, recommendation):
-        pool_news = pool.loc[pool['category'] == 'news']
-        recommendation_news = recommendation.loc[recommendation['category'] == 'news']
-        if not pool_news.empty and not recommendation_news.empty:
+        pool_news = [x for x in pool if x['category'] == 'news']
+        recommendation_news = [x for x in recommendation if x['category'] == 'news']
 
+        if len(pool_news) > 0 and len(recommendation_news) > 0:
             pool_vector = self.compute_distr(pool_news, adjusted=False)
             recommendation_vector = self.compute_distr(recommendation_news, adjusted=True)
             if pool_vector and recommendation_vector:

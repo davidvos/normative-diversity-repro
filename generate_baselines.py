@@ -3,7 +3,7 @@ import pandas as pd
 import random
 from tqdm import tqdm
 
-def generate_incorrect_random():
+def generate_incorrect_random(type='small', retrieval=True):
 
     # for sample in range(1, 6):
     #     for num_candidates in [10, 20, 40, 60, 80, 100]:
@@ -30,7 +30,7 @@ def generate_incorrect_random():
                 json.dump(json_dict, write_file)
                 write_file.write("\n")
 
-def generate_random():
+def generate_random(type='large', retrieval=True):
 
     # for sample in range(1, 6):
     #     for num_candidates in [10, 20, 40, 60, 80, 100]:  
@@ -59,10 +59,10 @@ def generate_random():
             json.dump(json_dict, write_file)
             write_file.write("\n")
 
-def generate_pop():
+def generate_pop(type='large', retrieval=True):
 
-    valid_behaviors_original = pd.read_csv('data/MIND/MINDsmall_dev/behaviors.tsv', delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
-    train_behaviors_original = pd.read_csv('data/MIND/MINDsmall_train/behaviors.tsv', delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
+    valid_behaviors_original = pd.read_csv('data/MIND/MINDlarge_dev/behaviors.tsv', delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
+    train_behaviors_original = pd.read_csv('data/MIND/MINDlarge_train/behaviors.tsv', delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
 
     pop_count_dict = {}
 
@@ -122,6 +122,6 @@ def generate_pop():
             write_file.write("\n")
 
 if __name__ == '__main__':   
-    generate_random(extended=True)
-    generate_incorrect_random(extended=True)
-    generate_pop(extended=False)
+    generate_random()
+    generate_incorrect_random()
+    generate_pop()

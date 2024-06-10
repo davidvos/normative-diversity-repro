@@ -26,10 +26,10 @@ class Calibration:
         sum_one_over_ranks = harmonic_number(n)
         count = 0
         distr = {}
-        for _, item in items.iterrows():
+        for item in items:
             count += 1
-            topic_freq = distr.get(item.category, 0.)
-            distr[item.category] = topic_freq + 1 * 1 / count / sum_one_over_ranks if adjusted else topic_freq + 1 * 1 / n
+            topic_freq = distr.get(item['category'], 0.)
+            distr[item['category']] = topic_freq + 1 * 1 / count / sum_one_over_ranks if adjusted else topic_freq + 1 * 1 / n
 
         return distr
 
@@ -66,13 +66,12 @@ class Calibration:
         return [divergence_with_discount, divergence_without_discount]
 
     def complexity_divergence(self, reading_history, recommendation):
-        if 'complexity' in reading_history.columns:
-            reading_history_complexity = np.array(reading_history.complexity).reshape(-1, 1)
-            recommendation_complexity = np.array(recommendation.complexity).reshape(-1, 1)
-        else:
-            reading_history_complexity = np.array(reading_history.text.apply(lambda x: self.textstat.flesch_kincaid_score(x))).reshape(-1, 1)
-            recommendation_complexity = np.array(
-                recommendation.text.apply(lambda x: self.textstat.flesch_kincaid_score(x))).reshape(-1, 1)
+        if 'complexity' in reading_history[0].keys():
+            reading_history_complexity = np.array([x['complexity'] for x in reading_history]).reshape(-1, 1)
+            recommendation_complexity = np.array([x['complexity'] for x in recommendation]).reshape(-1, 1)
+
+            reading_history_complexity = np.array([self.textstat.flesch_kincaid_score(x['text']) for x in reading_history]).reshape(-1, 1)
+            recommendation_complexity = np.array([self.textstat.flesch_kincaid_score(x['text']) for x in recommendation]).reshape(-1, 1)
 
         self.bins_discretizer.fit(reading_history_complexity)
 
@@ -86,7 +85,7 @@ class Calibration:
         return [divergence_with_discount, divergence_without_discount]
 
     def calculate(self, reading_history, recommendation, complexity = True):
-        if not reading_history.empty:
+        if len(reading_history) > 0 and len(recommendation) > 0:
             topic_divergence = self.topic_divergence(reading_history, recommendation)
             if complexity:
                 complexity_divergence = self.complexity_divergence(reading_history, recommendation)

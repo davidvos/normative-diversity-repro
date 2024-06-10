@@ -29,10 +29,10 @@ class Fragmentation:
     def calculate(self, sample, recommendation):
         with_discount = []
         without_discount = []
-        stories_x = recommendation.story.tolist()
+        stories_x = [rec['story'] for rec in recommendation]
         for y in sample:
             try:
-                stories_y = y.story.tolist()
+                stories_y = [y_article['story'] for y_article in y]
                 values = self.compare_recommendations(stories_x, stories_y)
                 if values:
                     with_discount.append(values[0])

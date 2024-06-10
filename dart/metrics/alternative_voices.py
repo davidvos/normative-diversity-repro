@@ -33,11 +33,11 @@ class AlternativeVoices:
     def get_ethnicity_score(self, indx, article):
         article_majority = 0
         article_minority = 0
-        if article.id in self.ethnicity_scores:
-            article_majority = self.ethnicity_scores[article.newsid]['majority']
-            article_minority = self.ethnicity_scores[article.newsid]['minority']
+        if article['article_id'] in self.ethnicity_scores:
+            article_majority = self.ethnicity_scores[article['article_id']]['majority']
+            article_minority = self.ethnicity_scores[article['article_id']]['minority']
         else:
-            persons = filter(lambda x: x['label'] == 'PERSON', article.entities)
+            persons = filter(lambda x: x['label'] == 'PERSON', article['entities'])
             for person in persons:
                 if 'citizen' in person and "United States" in person['citizen']:
                     if 'ethnicity' in person:
@@ -58,10 +58,10 @@ class AlternativeVoices:
         article_minority = 0
         article_majority = 0
         if article.id in self.gender_scores:
-            article_majority = self.gender_scores[article.newsid]['majority']
-            article_minority = self.gender_scores[article.newsid]['minority']
+            article_majority = self.gender_scores[article['article_id']]['majority']
+            article_minority = self.gender_scores[article['article_id']]['minority']
         else:
-            persons = filter(lambda x: x['label'] == 'PERSON', article.entities)
+            persons = filter(lambda x: x['label'] == 'PERSON', article['entities'])
             for person in persons:
                 if 'citizen' in person and "United States" in person['citizen']:
                     if 'gender' in person:
@@ -80,9 +80,8 @@ class AlternativeVoices:
             article_minority = self.mainstream_scores[indx]['minority']
         else:
             try:
-                persons = filter(lambda x: x['label'] == 'PERSON', article.entities)
+                persons = [x for x in article['enriched_entities'] if x['label'] == 'PERSON']
             except TypeError:
-                print(article.entities)
                 persons = []
             for person in persons:
                 if 'givenname' in person:
@@ -102,7 +101,7 @@ class AlternativeVoices:
         distr = {0: 0, 1: 0}
         majority = 0
         minority = 0
-        for indx, article in articles.iterrows():
+        for indx, article in enumerate(articles):
             rank = count + 1
             if value == 'gender':
                 article_majority, article_minority = self.get_gender_score(indx, article)
@@ -128,10 +127,9 @@ class AlternativeVoices:
         return distr
 
     def calculate(self, full_pool, full_recommendation):
-        pool = full_pool.loc[full_pool['category'] == 'news']
-        recommendation = full_recommendation.loc[full_recommendation['category'] == 'news']
-
-        if not recommendation.empty and not pool.empty:
+        pool = [x for x in full_pool if x['category'] == 'news']
+        recommendation = [x for x in full_recommendation if x['category'] == 'news']
+        if len(recommendation) > 0 and len(recommendation) > 0:
             # pool_ethnicity = self.get_dist(pool, 'ethnicity', False)
             # recommendation_ethnicity = self.get_dist(recommendation, 'ethnicity', True)
             # ethnicity_inclusion = np.nan
@@ -146,14 +144,17 @@ class AlternativeVoices:
 
             pool_mainstream = self.get_dist(pool, 'mainstream', False)
             recommendation_mainstream = self.get_dist(recommendation, 'mainstream', True)
-            divergence_with_discount = np.nan
+            divergence_with_discount = np.nan, np.nan
             if recommendation_mainstream != {0: 0, 1: 0}:
                 divergence_with_discount = compute_kl_divergence(pool_mainstream, recommendation_mainstream)
 
             recommendation_mainstream = self.get_dist(recommendation, 'mainstream', False)
-            divergence_without_discount = np.nan
+            divergence_without_discount = np.nan, np.nan
             if recommendation_mainstream != {0: 0, 1: 0}:
                 divergence_without_discount = compute_kl_divergence(pool_mainstream, recommendation_mainstream)
+
+            if np.isnan(divergence_with_discount[0]):
+                return
 
             return [divergence_with_discount, divergence_without_discount] # ethnicity_inclusion, gender_inclusion, mainstream_inclusion
         else:

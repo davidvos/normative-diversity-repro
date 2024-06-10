@@ -14,7 +14,7 @@ This repository contains the supporting material for the paper 'Normative Divers
 
 #### RADio on degraded MIND Small
 
-Run ```python main_small.py```
+Run ```python radio_small.py```
 
 #### Topic Calibration on MIND Large
 

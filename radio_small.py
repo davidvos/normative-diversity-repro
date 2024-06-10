@@ -1,11 +1,10 @@
-from utils import read_mind_files, read_recommendation_files, get_articles, process_candidates, process_labels, get_recommendations
-# from metrecs.metrecs import calculate_topic_calibration, calculate_complexity_calibration, calculate_activation
+from utils import read_mind_files, get_articles, process_candidates, process_labels
 
 import numpy as np
 import pandas as pd
 from sklearn.metrics import ndcg_score
-from scipy.stats import ttest_ind
 from tqdm import tqdm
+import warnings
 
 import dart.metrics.activation
 import dart.metrics.calibration
@@ -13,28 +12,14 @@ import dart.metrics.fragmentation
 import dart.metrics.representation
 import dart.metrics.alternative_voices
 
-# Importing the warning module to suppress the warning
-import warnings
-
 # Suppressing the specific warning
 warnings.filterwarnings("ignore", message="In version 1.5 onwards, subsample=200_000 will be used by default.", category=FutureWarning)
 
 config = {
-  "distance": ["kl", "jsd"],
-  "metrics": [
-    "calibration",
-    "fragmentation", 
-    "activation",
-    "representation",
-    "alternative_voices"
-    ],
-  "cutoff": [10],
-  "append": "N",
   "language": "english",
   "political_file": "data/term-116.csv",
   "output_folder": "output/",
     "metadata_folder": "metadata/",
-  "mind_type": "small",
   "country" : "us"
 }
 
@@ -44,19 +29,17 @@ Activation = dart.metrics.activation.Activation(config)
 Representation = dart.metrics.representation.Representation(config)
 AlternativeVoices = dart.metrics.alternative_voices.AlternativeVoices()
 
-save_results = True
-
 recommendation_cutoff = 10
+ndcg_cutoff = 10
 
-articles, behaviors = read_mind_files(
-    "data/preprocessed_articles.pkl",
-    "data/valid/behaviors.tsv"
-)
+behaviors = pd.read_csv('data/MIND/MINDsmall_dev/behaviors.tsv', delimiter='\t', header=None)
+behaviors = behaviors.replace({np.nan: None})
+
+# articles = pd.read_csv('data/MIND/MINDlarge_dev/news.tsv', delimiter='\t', header=None, names=['article_id', 'category', 'subcategory', 'title', 'abstract', 'url', 'title_entities', 'abstract_entities']) 
+articles = pd.read_pickle('data/preprocessed_articles.pkl')
 
 recommenders = ['random', 'pop', 'nrms', 'npa', 'incorrect_random', 'lstur', 'naml']
-
-#rewrite the previous lines into something more efficient
-recommender_to_df = {recommender: pd.read_json(f"data/recommendations/{recommender}_prediction.json", lines=True) for recommender in recommenders}
+recommender_to_df = {recommender: pd.read_json(f"data/recommendations_small/{recommender}_prediction.json", lines=True) for recommender in recommenders}
 
 results = {
     "topic_calibrations": {recommender: [] for recommender in recommender_to_df},
@@ -83,7 +66,6 @@ for progress_index, behavior in tqdm(behaviors.iterrows()):
     candidates_nids = process_candidates(candidates)
     gt_relevance_scores = process_labels(candidates)
 
-    # rewrite the previous lines into something more efficient
     recommendations_collection = {recommender: recommender_to_df[recommender][recommender_to_df[recommender]['impr_index'] == behavior_id]['pred_rank'].values.tolist()[0] for recommender in recommenders}
 
     candidate_articles = get_articles(candidates_nids, articles)
@@ -98,8 +80,7 @@ for progress_index, behavior in tqdm(behaviors.iterrows()):
         results['ndcg_values'][recommender].append(ndcg_value)
 
         recommendation_articles = [candidate_articles[i-1] for i in recommendations][:recommendation_cutoff]
-
-        topic_divergence, complexity_divergence = Calibration.calculate(user_history_articles, recommendation_articles, candidate_articles)
+        topic_divergence, complexity_divergence = Calibration.calculate(user_history_articles, recommendation_articles)
 
         topic_jsd_with_discount = topic_divergence[0][1]
         complexity_jsd_with_discount = complexity_divergence[0][1]
@@ -123,7 +104,7 @@ for progress_index, behavior in tqdm(behaviors.iterrows()):
         fragmentation_jsd_with_discount = fragmentation[0][1]
         results['fragmentations'][recommender].append(fragmentation_jsd_with_discount)
 
-        activation = Activation.calculate(user_history_articles, candidate_articles, recommendation_articles)
+        activation = Activation.calculate(candidate_articles, recommendation_articles)
         activation_jsd_with_discount = activation[0][1]
         results['activations'][recommender].append(activation_jsd_with_discount)
 
@@ -138,9 +119,8 @@ for progress_index, behavior in tqdm(behaviors.iterrows()):
             results['alternative_voices'][recommender].append(alternative_voices_jsd_with_discount)
 
 
-if save_results:
-    results_df = pd.DataFrame.from_dict(results)
-    results_df.to_csv(f'results/mind_small_results.csv')
+results_df = pd.DataFrame.from_dict(results)
+results_df.to_csv(f'results/mind_small_results.csv')
 
 for recommender in results['topic_calibrations']:
     print()
