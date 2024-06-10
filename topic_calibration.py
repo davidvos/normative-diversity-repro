@@ -1,4 +1,4 @@
-from utils import get_articles, process_candidates, process_labels
+from utils import process_candidates, process_labels
 
 import numpy as np
 import pandas as pd
@@ -20,8 +20,10 @@ config = {
   "country" : "us"
 }
 
-ndcg_cutoff = 10
-radio_cutoff = 10
+def get_articles(article_ids, articles_df):
+    articles_df = articles_df[articles_df.article_id.isin(article_ids)].set_index('article_id', drop=False).reindex(article_ids)
+    articles = articles_df[['article_id', 'category', 'subcategory']].to_dict('records')
+    return articles
 
 Calibration = dart.metrics.calibration.Calibration(config)
 Fragmentation = dart.metrics.fragmentation.Fragmentation()
@@ -29,17 +31,19 @@ Activation = dart.metrics.activation.Activation(config)
 Representation = dart.metrics.representation.Representation(config)
 AlternativeVoices = dart.metrics.alternative_voices.AlternativeVoices()
 
+ndcg_cutoff = 10
+radio_cutoff = 10
+
 behaviors = pd.read_csv('data/MIND/MINDlarge_dev/behaviors.tsv', delimiter='\t', header=None)
 behaviors = behaviors.replace({np.nan: None})
+new_behaviors = pd.read_csv(f'data/MIND/MINDlarge_dev/behaviors.tsv', delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
 
 articles = pd.read_csv('data/MIND/MINDlarge_dev/news.tsv', delimiter='\t', header=None, names=['article_id', 'category', 'subcategory', 'title', 'abstract', 'url', 'title_entities', 'abstract_entities']) 
 
-new_behaviors = pd.read_csv(f'data/MIND/MINDlarge_dev/behaviors.tsv', delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
-
-lstur_df = pd.read_json(f"data/predictions_final/lstur_prediction.json", lines=True)
-nrms_df = pd.read_json(f"data/predictions_final/nrms_prediction.json", lines=True)
-random_df = pd.read_json(f"data/predictions_final/random_prediction.json", lines=True)
-pop_df = pd.read_json(f"data/predictions_final/pop_prediction.json", lines=True)
+lstur_df = pd.read_json(f"data/recommendations_large/lstur_prediction.json", lines=True)
+nrms_df = pd.read_json(f"data/recommendations_large/nrms_prediction.json", lines=True)
+random_df = pd.read_json(f"data/recommendations_large/random_prediction.json", lines=True)
+pop_df = pd.read_json(f"data/recommendations_large/pop_prediction.json", lines=True)
 
 recommender_to_df = {
     'lstur': lstur_df,
@@ -52,7 +56,7 @@ results = {}
 results['topic_calibrations'] = {'lstur': [], 'nrms': [], 'pop': [], 'random': [], 'incorrect_random': []}
 results['ndcg_values'] = {'lstur': [], 'nrms': [], 'pop': [], 'random': [], 'incorrect_random': []}
 
-for progress_index, behavior in tqdm(behaviors[:100000].iterrows()):
+for progress_index, behavior in tqdm(behaviors.iterrows()):
 
     behavior_id = behavior[0]
     behavior_user = behavior[1]
@@ -88,16 +92,10 @@ for progress_index, behavior in tqdm(behaviors[:100000].iterrows()):
         results['ndcg_values'][recommender].append(ndcg_value)
         recommendation_articles = [candidate_articles[i-1] for i in recommendations][:radio_cutoff]
 
-        topic_divergence, complexity_divergence = Calibration.calculate(user_history_articles, recommendation_articles, candidate_articles, complexity=False)
+        topic_divergence, complexity_divergence = Calibration.calculate(user_history_articles, recommendation_articles, complexity=False)
 
         topic_jsd_with_discount = topic_divergence[0][1]
         results['topic_calibrations'][recommender].append(topic_jsd_with_discount)
 
-if save_results:
-    results_df = pd.DataFrame.from_dict(results)
-    results_df.to_csv(f'pop_ndcg_results.csv')
-
-for recommender in results['ndcg_values']:
-    print()
-    print(f"{recommender} topic calibration: {np.mean(results['topic_calibrations'][recommender])}")
-    print(f"{recommender} ndcg: {np.mean(results['ndcg_values'][recommender])}")
+results_df = pd.DataFrame.from_dict(results)
+results_df.to_csv(f'results/topic_calibration.csv')

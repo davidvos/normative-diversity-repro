@@ -23,14 +23,19 @@ config = {
   "country" : "us"
 }
 
+def get_articles(article_ids, articles_df):
+    articles_df = articles_df[articles_df.article_id.isin(article_ids)].set_index('article_id', drop=False).reindex(article_ids)
+    articles = articles_df[['article_id', 'category', 'subcategory', 'sentiment', 'complexity', 'text', 'publication_date', 'entities_base', 'enriched_entities', 'story']].to_dict('records')
+    return articles
+
 Calibration = dart.metrics.calibration.Calibration(config)
 Fragmentation = dart.metrics.fragmentation.Fragmentation()
 Activation = dart.metrics.activation.Activation(config)
 Representation = dart.metrics.representation.Representation(config)
 AlternativeVoices = dart.metrics.alternative_voices.AlternativeVoices()
 
-recommendation_cutoff = 10
 ndcg_cutoff = 10
+radio_cutoff = 10
 
 behaviors = pd.read_csv('data/MIND/MINDsmall_dev/behaviors.tsv', delimiter='\t', header=None)
 behaviors = behaviors.replace({np.nan: None})
@@ -76,10 +81,10 @@ for progress_index, behavior in tqdm(behaviors.iterrows()):
 
         predicted_relevance_scores = [-recommendation for recommendation in recommendations]
 
-        ndcg_value = ndcg_score([gt_relevance_scores], [predicted_relevance_scores], k=recommendation_cutoff)
+        ndcg_value = ndcg_score([gt_relevance_scores], [predicted_relevance_scores], k=ndcg_cutoff)
         results['ndcg_values'][recommender].append(ndcg_value)
 
-        recommendation_articles = [candidate_articles[i-1] for i in recommendations][:recommendation_cutoff]
+        recommendation_articles = [candidate_articles[i-1] for i in recommendations][:radio_cutoff]
         topic_divergence, complexity_divergence = Calibration.calculate(user_history_articles, recommendation_articles)
 
         topic_jsd_with_discount = topic_divergence[0][1]
@@ -97,7 +102,7 @@ for progress_index, behavior in tqdm(behaviors.iterrows()):
             samples_behavior_candidates = samples_behavior[4].split(' ')
             samples_candidates_nids = process_candidates(samples_behavior_candidates)
 
-            sample_ranking_nids = [samples_candidates_nids[i-1] for i in sample_recs][:recommendation_cutoff]
+            sample_ranking_nids = [samples_candidates_nids[i-1] for i in sample_recs][:radio_cutoff]
             frag_articles.append(get_articles(sample_ranking_nids, articles))
 
         fragmentation = Fragmentation.calculate(frag_articles, recommendation_articles)
@@ -121,13 +126,3 @@ for progress_index, behavior in tqdm(behaviors.iterrows()):
 
 results_df = pd.DataFrame.from_dict(results)
 results_df.to_csv(f'results/mind_small_results.csv')
-
-for recommender in results['topic_calibrations']:
-    print()
-    print(f"{recommender} topic calibration: {np.mean(results['topic_calibrations'][recommender])}")
-    print(f"{recommender} complexity calibration: {np.mean(results['complexity_calibrations'][recommender])}")
-    print(f"{recommender} fragmentation: {np.mean(results['fragmentations'][recommender])}")
-    print(f"{recommender} activation: {np.mean(results['activations'][recommender])}")
-    print(f"{recommender} representation: {np.mean(results['representations'][recommender])}")
-    print(f"{recommender} alternative voices: {np.mean(results['alternative_voices'][recommender])}")
-    print(f"{recommender} ndcg: {np.mean(results['ndcg_values'][recommender])}")
