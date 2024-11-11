@@ -40,4 +40,7 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 ## Figures
 
-![](results/category_counts.png "Category Counts"){width=50%} ![](results/activation_counts.png "Activation Counts"){width=50%}
+<div align="center">
+    <img src="results/category_counts.png" width="50%" alt="Category Counts">
+    <img src="results/activation_counts.png" width="50%" alt="Activation Counts">
+</div>
