@@ -1,4 +1,4 @@
-# Normative Diversity in News Recommendations: A Reproducibility Study
+# Examining Sensitivity and Representativeness of Normative Diversity Metrics
 
 This repository contains the supporting material for the paper 'Examining Sensitivity and Representativeness of Normative Diversity Metrics'. We reproduce the paper 'RADio* – An Introduction to Measuring Normative Diversity in News Recommendations'. The code in the 'dart/' folder comes from the original RADio implementation, [that can be found here](https://github.com/svrijenhoek/RADio). 
 
