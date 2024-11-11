@@ -40,6 +40,4 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 ## Figures
 
-![](results/category_counts.png "Category Counts")
-
-![](results/activation_counts.png "Activation Counts")
+![](results/category_counts.png "Category Counts") ![](results/activation_counts.png "Activation Counts")
