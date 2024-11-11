@@ -6,7 +6,7 @@ This repository contains the supporting material for the paper 'Examining Sensit
 
 1. Download this repository
 2. Open your Terminal in the directory of this repository
-3. Run ```mkdir data results```
+3. Run ```mkdir data```
 4. [Download the required files here](https://www.dropbox.com/scl/fi/ywvdjb6g6fq9igdjz34cc/data.zip?rlkey=o1n90ipkkdrhslryjxf8xt401&st=8ipbz0lh&dl=0)
 5. Unzip the downloaded file, and move its contents to the ```data/``` folder.
 6. [Download the MIND dataset here](https://msnews.github.io/)
