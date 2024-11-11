@@ -18,7 +18,7 @@ Run ```python compute_radio.py```
 
 #### Analysis of different user samples
 
-Run ```python topic_calibration.py```
+```Results.ipynb``` can process the results, perform significance testing and visualize the metrics as the user sample size increases.
 
 
 ## Results
