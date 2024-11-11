@@ -35,3 +35,11 @@ By downloading the files in the 'Get Started' section, you have access to all da
 1. Run ```generate_baselines.py```
 2. Use the [Recommenders Team](https://github.com/recommenders-team/recommenders) repository to train the NAML, NPA, NRMS and LSTUR models
 3. Use the trained models to generate recommendations for the corresponding files in ```data/MIND/MINDLarge_dev```
+
+# Additional Results
+
+## Figures
+
+![](results/category_counts.png "Category Counts")
+
+![](results/activation_counts.png "Activation Counts")
