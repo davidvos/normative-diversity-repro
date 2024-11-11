@@ -1,6 +1,6 @@
 # Normative Diversity in News Recommendations: A Reproducibility Study
 
-This repository contains the supporting material for the paper 'Normative Diversity in News Recommendations: A Reproducibility Study'. We reproduce the paper 'RADio* – An Introduction to Measuring Normative Diversity in News Recommendations'. The code in the 'dart/' folder comes from the original RADio implementation, [that can be found here](https://github.com/svrijenhoek/RADio). 
+This repository contains the supporting material for the paper 'Examining Sensitivity and Representativeness of Normative Diversity Metrics'. We reproduce the paper 'RADio* – An Introduction to Measuring Normative Diversity in News Recommendations'. The code in the 'dart/' folder comes from the original RADio implementation, [that can be found here](https://github.com/svrijenhoek/RADio). 
 
 ## Get Started
 
@@ -12,27 +12,23 @@ This repository contains the supporting material for the paper 'Normative Divers
 6. [Download the MIND dataset here](https://msnews.github.io/)
 7. Unzip the downloaded file, and move its contents the the ```data/MIND/``` folder.
 
-#### RADio on degraded MIND Small
+#### RADio on MIND
 
-Run ```python radio_small.py```
+Run ```python compute_radio.py```
 
-#### Topic Calibration on MIND Large
+#### Analysis of different user samples
 
 Run ```python topic_calibration.py```
 
-#### Topic Calibration in a Retrieval Setting
-
-Run ```python topic_calibration_retrieval.py```
 
 ## Results
 
-The three Python files ```main_small.py```, ```topic_calibration.py```, and ```topic_calibration_retrieval.py``` write their results to the ```results/``` folder. The Jupyter Notebook ```Results.ipynb``` contains the code necessary to generate the figures from the paper 'Normative Diversity in News Recommendations: A Reproducibility Study'.
+The Python scripts write their results to the ```results/``` folder. The Jupyter Notebook ```Results.ipynb``` contains the code necessary to generate the figures from the paper 'Examining Sensitivity and Representativeness of Normative Diversity Metrics'.
 
 ## Data Generation
 
 By downloading the files in the 'Get Started' section, you have access to all data and recommendations necessary to run our experiments. If you want to generate the recommendation sets yourself, you can follow these instructions.
 
-1. Run ```extend_candidates.py```
-2. Run ```generate_baselines.py```
-3. Use the [Recommenders Team](https://github.com/recommenders-team/recommenders) repository to train the NAML, NPA, NRMS and LSTUR models
-4. Use the trained models to generate recommendations for the corresponding files in ```data/candidates```
+1. Run ```generate_baselines.py```
+2. Use the [Recommenders Team](https://github.com/recommenders-team/recommenders) repository to train the NAML, NPA, NRMS and LSTUR models
+3. Use the trained models to generate recommendations for the corresponding files in ```data/MIND/MINDLarge_dev```
