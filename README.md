@@ -16,10 +16,13 @@ This repository contains the supporting material for the paper 'Examining Sensit
 
 Run ```python compute_radio.py```
 
-#### Analysis of different user samples
+#### Analysis of Different User Samples
 
-```Results.ipynb``` can process the results, perform significance testing and visualize the metrics as the user sample size increases.
+```Results.ipynb``` is a notebook containing code to process the results, do significance testing and visualize the metrics as the user sample size increases.
 
+#### Simulation of Rankers
+
+```Simulate.ipynb``` is a notebook containing the simulation of different rankers with a shared distribution as mentioned in 'Examining Sensitivity and Representativeness of Normative Diversity Metrics'. It also contains an analysis of the output of different news recommenders on the MIND dataset.
 
 ## Results
 
