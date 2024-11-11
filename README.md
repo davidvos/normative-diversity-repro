@@ -40,7 +40,7 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 ## Figures
 
-<div align="center">
+<div align="center" style="display: flex; align-items: flex-start;">
     <img src="results/category_counts.png" width="49%" alt="Category Counts" style="vertical-align: top;">
     <img src="results/activation_counts.png" width="49%" alt="Activation Counts" style="vertical-align: top;">
 </div>
