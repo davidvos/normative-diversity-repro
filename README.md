@@ -47,8 +47,8 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 ## Results on sample of MIND with available body texts
 
-| Column 1 | Column 2 | Column 3 |
-| -------- | -------- | -------- |
-| Row 1, Cell 1 | Row 1, Cell 2 | Row 1, Cell 3 |
-| Row 2, Cell 1 | Row 2, Cell 2 | Row 2, Cell 3 |
-| Row 3, Cell 1 | Row 3, Cell 2 | Row 3, Cell 3 |d
+|                  |   topic_calibrations |   complexity_calibrations |   fragmentations |   activations |   representations |   ndcg_values |
+|:-----------------|---------------------:|--------------------------:|-----------------:|--------------:|------------------:|--------------:|
+| random           |             0.612829 |                  0.473121 |         0.574202 |      0.280122 |          0.236508 |      0.230426 |
+| incorrect_random |             0.629983 |                  0.499395 |         0.583904 |      0.319876 |          0.268683 |      0.228604 |
+| pop              |             0.613066 |                  0.47361  |         0.591352 |      0.279849 |          0.232561 |      0.226078 |
