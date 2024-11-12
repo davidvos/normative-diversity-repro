@@ -161,4 +161,5 @@ cython_debug/
 
 /data/*
 /results/mind_results_radio.csv
+/results/mind_results_sampled.csv
 **/.DS_Store
