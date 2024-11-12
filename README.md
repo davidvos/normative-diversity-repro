@@ -44,3 +44,11 @@ By downloading the files in the 'Get Started' section, you have access to all da
     <img src="results/category_counts.png" alt="Category counts" width="45%">
     <img src="results/activation_counts.png" alt="ACtivation counts" width="45%">
 </div>
+
+## Results on sample of MIND with available body texts
+
+| Column 1 | Column 2 | Column 3 |
+| -------- | -------- | -------- |
+| Row 1, Cell 1 | Row 1, Cell 2 | Row 1, Cell 3 |
+| Row 2, Cell 1 | Row 2, Cell 2 | Row 2, Cell 3 |
+| Row 3, Cell 1 | Row 3, Cell 2 | Row 3, Cell 3 |d
