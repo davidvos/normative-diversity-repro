@@ -41,6 +41,6 @@ By downloading the files in the 'Get Started' section, you have access to all da
 ## Figures
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-    <img src="results/activation_counts.png" alt="First Image" width="45%">
-    <img src="results/activation_counts.png" alt="Second Image" width="45%">
+    <img src="results/category_counts.png" alt="Category counts" width="45%">
+    <img src="results/activation_counts.png" alt="ACtivation counts" width="45%">
 </div>
