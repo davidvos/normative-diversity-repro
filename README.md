@@ -40,9 +40,6 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 ## Figures
 
-<table>
-    <tr>
-        <img src="results/category_counts.png" width="49%" alt="Category Counts">
-        <img src="results/activation_counts.png" width="49%" alt="Activation Counts">
-    </tr>
-</table>
+![](results/category_counts.png "Category Counts")
+
+![](results/activation_counts.png "Activation Counts")
