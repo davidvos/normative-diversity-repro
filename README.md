@@ -11,8 +11,8 @@ This repository contains the supporting material for the paper 'Examining Sensit
 5. Unzip the downloaded file, and move its contents to the ```data/``` folder.
 6. [Download the required Results files here](https://www.dropbox.com/scl/fi/ue4fd24xzud9inuuicfvm/results.zip?rlkey=zgezncdv6wm4yfqvrictuz160&st=bitg4e4s&dl=0)
 7. Unzip the downloaded file and move its contents to the ```results/``` folder.
-8. [Download the MIND dataset here](https://msnews.github.io/)
-9. 3. Run ```mkdir data/MIND```
+8. 9. Run ```mkdir data/MIND```
+9. [Download the MIND dataset here](https://msnews.github.io/)
 10. Unzip the downloaded file, and move its contents the the ```data/MIND/``` folder.
 
 #### RADio on MIND
