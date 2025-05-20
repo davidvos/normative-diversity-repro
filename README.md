@@ -45,6 +45,11 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 ### MIND Attribute Counts
 
+<div>
+    <img src="results/mind_categories.png">
+    <img src="results/mind_subcategories.png">
+    <img src="results/mind_activations.png">
+</div>
 
 ### EBNeRD Attribute Counts
 
@@ -56,6 +61,12 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 ### MIND Distributions
 
+<div>
+    <img src="results/mind_topic_calibrations_distributions.png">
+    <img src="results/mind_subtopic_calibrations_distributions.png">
+    <img src="results/mind_activations_distributions.png">
+</div>
+
 ### EBNeRD Distributions
 
 <div>
@@ -66,6 +77,17 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 ### MIND Convergences
 
+<div>
+    <img src="results/mind_converging_topic_calibrations.png">
+    <img src="results/mind_converging_subtopic_calibrations.png">
+    <img src="results/mind_converging_complexity_calibrations.png">
+    <img src="results/mind_converging_activations.png">
+    <img src="results/mind_converging_tf_idf_ild_values.png">
+    <img src="results/mind_converging_sentbert_ild_values.png">
+    <img src="results/mind_converging_gini_values.png">
+    <img src="results/mind_converging_ndcg_values.png">
+</div>
+
 ### EBNeRD Convergences
 
 <div>
@@ -73,6 +95,7 @@ By downloading the files in the 'Get Started' section, you have access to all da
     <img src="results/ebnerd_converging_subtopic_calibrations.png">
     <img src="results/ebnerd_converging_complexity_calibrations.png">
     <img src="results/ebnerd_converging_activations.png">
+    <img src="results/ebnerd_converging_alternative_voices.png">
     <img src="results/ebnerd_converging_tf_idf_ild_values.png">
     <img src="results/ebnerd_converging_sentbert_ild_values.png">
     <img src="results/ebnerd_converging_gini_values.png">
