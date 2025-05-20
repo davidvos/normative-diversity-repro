@@ -95,7 +95,6 @@ By downloading the files in the 'Get Started' section, you have access to all da
     <img src="results/ebnerd_converging_subtopic_calibrations.png">
     <img src="results/ebnerd_converging_complexity_calibrations.png">
     <img src="results/ebnerd_converging_activations.png">
-    <img src="results/ebnerd_converging_alternative_voices.png">
     <img src="results/ebnerd_converging_tf_idf_ild_values.png">
     <img src="results/ebnerd_converging_sentbert_ild_values.png">
     <img src="results/ebnerd_converging_gini_values.png">
