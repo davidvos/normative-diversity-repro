@@ -43,9 +43,40 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 ## Figures
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-    <img src="results/category_counts.png" alt="Category counts" width="45%">
-    <img src="results/activation_counts.png" alt="ACtivation counts" width="45%">
+### MIND Attribute Counts
+
+
+### EBNeRD Attribute Counts
+
+<div>
+    <img src="results/ebnerd_categories.png">
+    <img src="results/ebnerd_subcategories.png">
+    <img src="results/ebnerd_activations.png">
+</div>
+
+### MIND Distributions
+
+### EBNeRD Distributions
+
+<div>
+    <img src="results/ebnerd_topic_calibration_distributions.png">
+    <img src="results/ebnerd_topic_subcalibration_distributions.png">
+    <img src="results/ebnerd_activation_distributions.png">
+</div>
+
+### MIND Convergences
+
+### EBNeRD Convergences
+
+<div>
+    <img src="results/ebnerd_converging_topic_calibrations.png">
+    <img src="results/ebnerd_converging_subtopic_calibrations.png">
+    <img src="results/ebnerd_converging_complexity_calibrations.png">
+    <img src="results/ebnerd_converging_activations.png">
+    <img src="results/ebnerd_converging_tf_idf_ild_values.png">
+    <img src="results/ebnerd_converging_sentbert_ild_values.png">
+    <img src="results/ebnerd_converging_gini_values.png">
+    <img src="results/ebnerd_converging_ndcg_values.png">
 </div>
 
 ## Results on sample of MIND with available body texts
