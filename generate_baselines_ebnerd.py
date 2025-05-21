@@ -6,15 +6,12 @@ import numpy as np
 
 def generate_incorrect_random():
 
-    # for sample in range(1, 6):
-    #     for num_candidates in [10, 20, 40, 60, 80, 100]:
-
     prediction_file = f'incorrect_random_prediction.json'
     example_file = f'random_prediction.json'
 
     with open('data/recommendations/ebnerd/' + prediction_file, 'w') as write_file:
         with open('data/recommendations/ebnerd/' + example_file , 'r') as read_file:
-            for index, line in enumerate(read_file):
+            for index, line in tqdm(enumerate(read_file)):
                 parsed_line = json.loads(line)
                 pred_rank = parsed_line['pred_rank']
 
@@ -33,11 +30,8 @@ def generate_incorrect_random():
 
 def generate_random():
 
-    # for sample in range(1, 6):
-    #     for num_candidates in [10, 20, 40, 60, 80, 100]:  
-
     prediction_file = f'random_prediction.json'
-    behavior_file = f'behaviors_parsed_0.tsv'
+    behavior_file = f'behaviors_parsed.tsv'
 
     with open('data/recommendations/ebnerd/' + prediction_file, 'w') as write_file:
 
@@ -107,9 +101,6 @@ def generate_pop():
             labels = row['labels']
             for label in labels:
                 pop_count_dict[label] = pop_count_dict.get(label, 0) + 1
-
-    # for sample in range(1, 6):
-    #     for num_candidates in [10, 20, 40, 60, 80, 100]:
     
     prediction_file = f'pop_prediction.json'
 
@@ -141,6 +132,6 @@ def generate_pop():
             write_file.write("\n")
 
 if __name__ == '__main__':   
-    # generate_random()
-    # generate_incorrect_random()
+    generate_random()
+    generate_incorrect_random()
     generate_pop()

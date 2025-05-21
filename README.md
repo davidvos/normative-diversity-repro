@@ -4,11 +4,11 @@ This repository contains the supporting material for the paper 'Examining Sensit
 
 ## Get Started
 
-1. Download this repository
-2. Open your Terminal in the directory of this repository
-3. Run ```mkdir data``` and ```mkdir results```
+1. Clone this repository.
+2. Open your Terminal in the directory of this repository.
+3. Run ```mkdir data``` and ```mkdir results```.
 4. [Download the Data & Results files here](https://www.dropbox.com/scl/fi/6uj6e3ji7kn8zkq4sr6s7/data_results.zip?rlkey=xrrrbgmy457bz45rcgu8434oc&st=irwlcx26&dl=0)
-5. Unzip the downloaded file, and move its contents to the ```data/``` and ```results/``` folder.
+5. Unzip the downloaded file, and move its contents to the ```data/``` and ```results/``` folders.
 
 #### RADio on MIND
 

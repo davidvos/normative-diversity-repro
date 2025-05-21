@@ -5,15 +5,12 @@ from tqdm import tqdm
 
 def generate_incorrect_random():
 
-    # for sample in range(1, 6):
-    #     for num_candidates in [10, 20, 40, 60, 80, 100]:
+    prediction_file = f'incorrect_random_prediction.json'
+    example_file = f'random_prediction.json'
 
-    prediction_file = f'random_prediction.json'
-    example_file = f'behaviors.tsv'
-
-    with open('data/recommendations/' + prediction_file, 'w') as write_file:
-        with open('data/recommendations/' + example_file , 'r') as read_file:
-            for index, line in enumerate(read_file):
+    with open('data/recommendations/mind/' + prediction_file, 'w') as write_file:
+        with open('data/recommendations/mind/' + example_file , 'r') as read_file:
+            for index, line in tqdm(enumerate(read_file)):
                 parsed_line = json.loads(line)
                 pred_rank = parsed_line['pred_rank']
 
@@ -32,13 +29,10 @@ def generate_incorrect_random():
 
 def generate_random():
 
-    # for sample in range(1, 6):
-    #     for num_candidates in [10, 20, 40, 60, 80, 100]:  
-
     prediction_file = f'random_prediction.json'
     behavior_file = f'behaviors.tsv'
 
-    with open('data/recommendations/' + prediction_file, 'w') as write_file:
+    with open('data/recommendations/mind/' + prediction_file, 'w') as write_file:
 
         valid_behaviors = pd.read_csv('data/MIND/MINDlarge_dev/' + behavior_file, delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
 
@@ -68,7 +62,6 @@ def generate_pop():
 
     # Iterate through each row in the specified column
     for index, row in valid_behaviors_original.iterrows():
-        print(row['history'])
         if pd.notna(row['history']):
             # Split the text by whitespace
             history = row['history'].split()
@@ -95,15 +88,13 @@ def generate_pop():
                 if label == '1':
                     pop_count_dict[article] = pop_count_dict.get(article, 0) + 1
 
-    # for sample in range(1, 6):
-    #     for num_candidates in [10, 20, 40, 60, 80, 100]:
     
     prediction_file = f'pop_prediction.json'
     behavior_file = f'behaviors.tsv'
 
-    with open('data/recommendations/' + prediction_file, 'w') as write_file:
+    with open('data/recommendations/mind/' + prediction_file, 'w') as write_file:
 
-        valid_behaviors = pd.read_csv('data/MIND/MINDsmall_dev/' + behavior_file, delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
+        valid_behaviors = pd.read_csv('data/MIND/MINDlarge_dev/' + behavior_file, delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
         
         for index, line in tqdm(valid_behaviors.iterrows()):
             
@@ -123,6 +114,6 @@ def generate_pop():
             write_file.write("\n")
 
 if __name__ == '__main__':   
-    # generate_random()
-    # generate_incorrect_random()
+    generate_random()
+    generate_incorrect_random()
     generate_pop()
