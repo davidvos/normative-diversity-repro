@@ -185,7 +185,7 @@ def main():
         if max_behaviors >= 0 and progress_index > max_behaviors:
             break
             
-        behavior_id, behavior_user, behavior_datetime, behavior_history, behavior_candidates = behavior
+        behavior_id, _, _, behavior_history, behavior_candidates = behavior
         
         if dataset == 'ebnerd':
             behavior_id = progress_index + 1
