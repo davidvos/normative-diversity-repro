@@ -240,7 +240,7 @@ def main():
     
     # Convert results to DataFrame and save
     results_df = pd.DataFrame.from_dict(results)
-    results_df.to_csv(f'{OUTPUT_FOLDER}{dataset}_max_min_calibration_results_k@{RADIO_CUTOFF}.csv')
+    results_df.to_csv(f'{OUTPUT_FOLDER}{dataset}_results_k@{RADIO_CUTOFF}.csv')
     
     # Print summary statistics
     print("\nNDCG Values:")

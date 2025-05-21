@@ -6,14 +6,9 @@ This repository contains the supporting material for the paper 'Examining Sensit
 
 1. Download this repository
 2. Open your Terminal in the directory of this repository
-3. Run ```mkdir data```
-4. [Download the required Data files here](https://www.dropbox.com/scl/fi/ywvdjb6g6fq9igdjz34cc/data.zip?rlkey=o1n90ipkkdrhslryjxf8xt401&st=a21hote7&dl=0)
-5. Unzip the downloaded file, and move its contents to the ```data/``` folder.
-6. [Download the required Results files here](https://www.dropbox.com/scl/fi/ue4fd24xzud9inuuicfvm/results.zip?rlkey=zgezncdv6wm4yfqvrictuz160&st=bitg4e4s&dl=0)
-7. Unzip the downloaded file and move its contents to the ```results/``` folder.
-8. Run ```mkdir data/MIND```
-9. [Download the MIND dataset here](https://msnews.github.io/)
-10. Unzip the downloaded file, and move its contents the the ```data/MIND/``` folder.
+3. Run ```mkdir data``` and ```mkdir results```
+4. [Download the Data & Results files here](https://www.dropbox.com/scl/fi/6uj6e3ji7kn8zkq4sr6s7/data_results.zip?rlkey=xrrrbgmy457bz45rcgu8434oc&st=irwlcx26&dl=0)
+5. Unzip the downloaded file, and move its contents to the ```data/``` and ```results/``` folder.
 
 #### RADio on MIND
 
@@ -21,23 +16,17 @@ Run ```python compute_radio.py```
 
 #### Analysis of Different User Samples
 
-```Results.ipynb``` is a notebook containing code to process the results, do significance testing and visualize the metrics as the user sample size increases.
+```MIND_Results.ipynb``` and ```EBNeRD_Results.ipynb``` are notebooks containing code to process the results, do significance testing and visualize distributions of the metrics.
 
-#### Simulation of Rankers
-
-```Simulate.ipynb``` is a notebook containing the simulation of different rankers with a shared distribution as mentioned in 'Examining Sensitivity and Representativeness of Normative Diversity Metrics'. It also contains an analysis of the output of different news recommenders on the MIND dataset.
-
-## Results
-
-The Python scripts write their results to the ```results/``` folder. The Jupyter Notebook ```Results.ipynb``` contains the code necessary to generate the figures from the paper 'Examining Sensitivity and Representativeness of Normative Diversity Metrics'.
+```MIND_Analysis.ipynb``` and ```EBNeRD_Analysis.ipynb``` are notebooks containing the code to plot figures of the distribution of article attributes in recommendations.
 
 ## Data Generation
 
 By downloading the files in the 'Get Started' section, you have access to all data and recommendations necessary to run our experiments. If you want to generate the recommendation sets yourself, you can follow these instructions.
 
-1. Run ```generate_baselines.py```
+1. Run ```generate_baselines_mind.py``` and ```generate_baselines_ebnerd.py```
 2. Use the [Recommenders Team](https://github.com/recommenders-team/recommenders) repository to train the NAML, NPA, NRMS and LSTUR models
-3. Use the trained models to generate recommendations for the corresponding files in ```data/MIND/MINDLarge_dev```
+3. Use the trained models to generate recommendations for the corresponding files in ```data/mind/MINDLarge_dev```
 
 # Additional Results
 
