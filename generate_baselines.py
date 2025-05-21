@@ -3,7 +3,7 @@ import pandas as pd
 import random
 from tqdm import tqdm
 
-def generate_incorrect_random(type='small', retrieval=True):
+def generate_incorrect_random():
 
     # for sample in range(1, 6):
     #     for num_candidates in [10, 20, 40, 60, 80, 100]:
@@ -30,7 +30,7 @@ def generate_incorrect_random(type='small', retrieval=True):
                 json.dump(json_dict, write_file)
                 write_file.write("\n")
 
-def generate_random(type='large', retrieval=True):
+def generate_random():
 
     # for sample in range(1, 6):
     #     for num_candidates in [10, 20, 40, 60, 80, 100]:  
@@ -52,14 +52,14 @@ def generate_random(type='large', retrieval=True):
             random_recommendations = [random_candidates.index(candidate) + 1 for candidate in candidates]
 
             json_dict = {
-                'impr_index': index + 1,
+                'impr_index': index,
                 'pred_rank': random_recommendations
             }
 
             json.dump(json_dict, write_file)
             write_file.write("\n")
 
-def generate_pop(type='large', retrieval=True):
+def generate_pop():
 
     valid_behaviors_original = pd.read_csv('data/MIND/MINDlarge_dev/behaviors.tsv', delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
     train_behaviors_original = pd.read_csv('data/MIND/MINDlarge_train/behaviors.tsv', delimiter='\t', header=None, names=['uid', 'date', 'history', 'candidates'])
@@ -68,6 +68,7 @@ def generate_pop(type='large', retrieval=True):
 
     # Iterate through each row in the specified column
     for index, row in valid_behaviors_original.iterrows():
+        print(row['history'])
         if pd.notna(row['history']):
             # Split the text by whitespace
             history = row['history'].split()
@@ -122,6 +123,6 @@ def generate_pop(type='large', retrieval=True):
             write_file.write("\n")
 
 if __name__ == '__main__':   
-    generate_random()
-    generate_incorrect_random()
+    # generate_random()
+    # generate_incorrect_random()
     generate_pop()

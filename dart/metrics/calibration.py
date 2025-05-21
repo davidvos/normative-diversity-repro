@@ -20,7 +20,7 @@ class Calibration:
         self.language = config['language']
         self.textstat = dart.handler.other.textstat.TextStatHandler(self.language)
 
-    def compute_distr(self, items, adjusted=False):
+    def compute_distr(self, items, adjusted=False, subcategory=False):
         """Compute the genre distribution for a given list of Items."""
         n = len(items)
         sum_one_over_ranks = harmonic_number(n)
@@ -28,8 +28,12 @@ class Calibration:
         distr = {}
         for item in items:
             count += 1
-            topic_freq = distr.get(item['category'], 0.)
-            distr[item['category']] = topic_freq + 1 * 1 / count / sum_one_over_ranks if adjusted else topic_freq + 1 * 1 / n
+            if subcategory:
+                topic_freq = distr.get(item['subcategory'], 0.)
+                distr[item['subcategory']] = topic_freq + 1 * 1 / count / sum_one_over_ranks if adjusted else topic_freq + 1 * 1 / n 
+            else:
+                topic_freq = distr.get(item['category'], 0.)
+                distr[item['category']] = topic_freq + 1 * 1 / count / sum_one_over_ranks if adjusted else topic_freq + 1 * 1 / n
 
         return distr
 
@@ -55,13 +59,13 @@ class Calibration:
                 distr[bin] = round(np.count_nonzero(arr_binned == bin) / arr_binned.shape[0], 3)
         return distr
 
-    def topic_divergence(self, reading_history, recommendation):
-        freq_rec = self.compute_distr(recommendation, adjusted=True)
-        freq_history = self.compute_distr(reading_history, adjusted=True)
+    def topic_divergence(self, reading_history, recommendation, subcategory=False):
+        freq_rec = self.compute_distr(recommendation, adjusted=True, subcategory=subcategory)
+        freq_history = self.compute_distr(reading_history, adjusted=True, subcategory=subcategory)
         divergence_with_discount = compute_kl_divergence(freq_history, freq_rec)
 
-        freq_rec = self.compute_distr(recommendation, adjusted=False)
-        freq_history = self.compute_distr(reading_history, adjusted=False)
+        freq_rec = self.compute_distr(recommendation, adjusted=False, subcategory=subcategory)
+        freq_history = self.compute_distr(reading_history, adjusted=False, subcategory=subcategory)
         divergence_without_discount = compute_kl_divergence(freq_history, freq_rec)
         return [divergence_with_discount, divergence_without_discount]
 
@@ -84,9 +88,9 @@ class Calibration:
         divergence_without_discount = compute_kl_divergence(distr_pool, distr_recommendation)
         return [divergence_with_discount, divergence_without_discount]
 
-    def calculate(self, reading_history, recommendation, complexity = True):
+    def calculate(self, reading_history, recommendation, complexity = True, subcategory = False):
         if len(reading_history) > 0 and len(recommendation) > 0:
-            topic_divergence = self.topic_divergence(reading_history, recommendation)
+            topic_divergence = self.topic_divergence(reading_history, recommendation, subcategory)
             if complexity:
                 complexity_divergence = self.complexity_divergence(reading_history, recommendation)
             else:

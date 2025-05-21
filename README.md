@@ -7,10 +7,13 @@ This repository contains the supporting material for the paper 'Examining Sensit
 1. Download this repository
 2. Open your Terminal in the directory of this repository
 3. Run ```mkdir data```
-4. [Download the required files here](https://www.dropbox.com/scl/fi/ywvdjb6g6fq9igdjz34cc/data.zip?rlkey=o1n90ipkkdrhslryjxf8xt401&st=8ipbz0lh&dl=0)
+4. [Download the required Data files here](https://www.dropbox.com/scl/fi/ywvdjb6g6fq9igdjz34cc/data.zip?rlkey=o1n90ipkkdrhslryjxf8xt401&st=a21hote7&dl=0)
 5. Unzip the downloaded file, and move its contents to the ```data/``` folder.
-6. [Download the MIND dataset here](https://msnews.github.io/)
-7. Unzip the downloaded file, and move its contents the the ```data/MIND/``` folder.
+6. [Download the required Results files here](https://www.dropbox.com/scl/fi/ue4fd24xzud9inuuicfvm/results.zip?rlkey=zgezncdv6wm4yfqvrictuz160&st=bitg4e4s&dl=0)
+7. Unzip the downloaded file and move its contents to the ```results/``` folder.
+8. Run ```mkdir data/MIND```
+9. [Download the MIND dataset here](https://msnews.github.io/)
+10. Unzip the downloaded file, and move its contents the the ```data/MIND/``` folder.
 
 #### RADio on MIND
 
@@ -40,9 +43,62 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 ## Figures
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-    <img src="results/category_counts.png" alt="Category counts" width="45%">
-    <img src="results/activation_counts.png" alt="ACtivation counts" width="45%">
+### MIND Attribute Counts
+
+<div>
+    <img src="results/mind_categories.png">
+    <img src="results/mind_subcategories.png">
+    <img src="results/mind_activations.png">
+</div>
+
+### EBNeRD Attribute Counts
+
+<div>
+    <img src="results/ebnerd_categories.png">
+    <img src="results/ebnerd_subcategories.png">
+    <img src="results/ebnerd_activations.png">
+</div>
+
+### MIND Distributions
+
+<div>
+    <img src="results/mind_topic_calibrations_distributions.png">
+    <img src="results/mind_subtopic_calibrations_distributions.png">
+    <img src="results/mind_activations_distributions.png">
+</div>
+
+### EBNeRD Distributions
+
+<div>
+    <img src="results/ebnerd_topic_calibration_distributions.png">
+    <img src="results/ebnerd_topic_subcalibration_distributions.png">
+    <img src="results/ebnerd_activation_distributions.png">
+</div>
+
+### MIND Convergences
+
+<div>
+    <img src="results/mind_converging_topic_calibrations.png">
+    <img src="results/mind_converging_subtopic_calibrations.png">
+    <img src="results/mind_converging_complexity_calibrations.png">
+    <img src="results/mind_converging_activations.png">
+    <img src="results/mind_converging_tf_idf_ild_values.png">
+    <img src="results/mind_converging_sentbert_ild_values.png">
+    <img src="results/mind_converging_gini_values.png">
+    <img src="results/mind_converging_ndcg_values.png">
+</div>
+
+### EBNeRD Convergences
+
+<div>
+    <img src="results/ebnerd_converging_topic_calibrations.png">
+    <img src="results/ebnerd_converging_subtopic_calibrations.png">
+    <img src="results/ebnerd_converging_complexity_calibrations.png">
+    <img src="results/ebnerd_converging_activations.png">
+    <img src="results/ebnerd_converging_tf_idf_ild_values.png">
+    <img src="results/ebnerd_converging_sentbert_ild_values.png">
+    <img src="results/ebnerd_converging_gini_values.png">
+    <img src="results/ebnerd_converging_ndcg_values.png">
 </div>
 
 ## Results on sample of MIND with available body texts
