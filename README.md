@@ -11,9 +11,15 @@ This repository contains the supporting material for the paper 'Examining Sensit
 5. [Download the Data & Results files here](https://www.dropbox.com/scl/fi/6uj6e3ji7kn8zkq4sr6s7/data_results.zip?rlkey=xrrrbgmy457bz45rcgu8434oc&st=0nt8y8ht&dl=0)
 6. Unzip the downloaded file, and move its contents to the ```data/``` and ```results/``` folders.
 
-#### RADio on MIND
+#### RADio on MIND or EBNeRD
 
-Run ```python compute_radio.py```
+Run ```python compute_radio.py --dataset 'mind'``` or ```python compute_radio.py --dataset 'ebnerd'```
+
+You can consider a maximum number of behaviors (e.g. 1000) by running ```python compute_radio.py --dataset 'mind' --max-behaviors 1000``` or ```python compute_radio.py --dataset 'ebnerd' --max-behaviors 1000```
+
+#### Include greedy ranking
+
+Run ```python compute_radio.py --dataset 'mind' --greedy``` or ```python compute_radio.py --dataset 'ebnerd' --greedy```
 
 #### Analysis of Different User Samples
 
