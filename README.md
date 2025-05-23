@@ -35,7 +35,7 @@ By downloading the files in the 'Get Started' section, you have access to all da
 
 1. Run ```generate_baselines_mind.py``` and ```generate_baselines_ebnerd.py```
 2. Use the [Recommenders Team](https://github.com/recommenders-team/recommenders) repository to train the NAML, NPA, NRMS and LSTUR models
-3. Use the trained models to generate recommendations for the corresponding files in ```data/mind/MINDLarge_dev```
+3. Use the trained models to generate recommendations for the corresponding files in ```data/mind/MINDlarge_dev``` and ```data/ebnerd/val```
 
 # Additional Results
 

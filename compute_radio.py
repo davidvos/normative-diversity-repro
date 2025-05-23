@@ -84,14 +84,14 @@ def process_recommendation(recommender, recommendations, candidate_articles, use
     # Calculate diversity metrics
     if len(recommendation_articles) > 0:
         # TF-IDF ILD
-        # tfidf_ild_value = metrics['ild'].calculate_ild(recommendation_articles, representation='tfidf')
-        # if tfidf_ild_value:
-        #     results['tf_idf_ild'] = tfidf_ild_value
+        tfidf_ild_value = metrics['ild'].calculate_ild(recommendation_articles, representation='tfidf')
+        if tfidf_ild_value:
+            results['tf_idf_ild'] = tfidf_ild_value
             
-        # # Sentence Transformer ILD
-        # sentbert_ild_value = metrics['ild'].calculate_ild(recommendation_articles, representation='st')
-        # if sentbert_ild_value:
-        #     results['sentbert_ild'] = float(sentbert_ild_value)
+        # Sentence Transformer ILD
+        sentbert_ild_value = metrics['ild'].calculate_ild(recommendation_articles, representation='st')
+        if sentbert_ild_value:
+            results['sentbert_ild'] = float(sentbert_ild_value)
             
         # Gini coefficient
         gini_coefficient = metrics['gini'].calculate_list_gini(recommendation_articles, key="category")
