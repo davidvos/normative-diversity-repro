@@ -33,10 +33,11 @@ Be aware of the fact that greedy ranking is computationally expensive, and that 
 
 By downloading the files in the 'Get Started' section, you have access to all data and recommendations necessary to run our experiments. If you want to generate the recommendation sets yourself, you can follow these instructions.
 
-1. Run ```generate_baselines_mind.py``` and ```generate_baselines_ebnerd.py```
-2. Use the [Recommenders Team](https://github.com/recommenders-team/recommenders) repository to train the NAML, NPA, NRMS and LSTUR models
-3. Use the trained models to generate recommendations for the corresponding files in ```data/mind/MINDlarge_dev``` and ```data/ebnerd/val```
-4. Run ```python preprocess_ebnerd_news.py``` to preprocess the EBNeRD news data. 
+1. Download the MIND and EBNeRD datasets from the [MIND](https://msnews.github.io/) and [EBNeRD](https://recsys.eb.dk/) repositories.
+2. Run ```generate_baselines_mind.py``` and ```generate_baselines_ebnerd.py```
+3. Use the [Recommenders Team](https://github.com/recommenders-team/recommenders) repository to train the NAML, NPA, NRMS and LSTUR models
+4. Use the trained models to generate recommendations for the corresponding files in ```data/mind/MINDlarge_dev``` and ```data/ebnerd/val```
+5. Run ```python preprocess_ebnerd_news.py``` to preprocess the EBNeRD news data. 
 
 # Additional Results
 
