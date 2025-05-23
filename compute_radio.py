@@ -256,19 +256,19 @@ def main():
     if enable_greedy:
 
         print("\nOriginal Topic Calibration Values:")
-        print(results_df['original_topic_calibration_scores'].apply(lambda x: np.mean(x) if x else None))
+        print(results_df['original_topic_calibration'].apply(lambda x: np.mean(x) if x else None))
 
         print("\nMaximum Topic Calibration Values:")
-        print(results_df['max_topic_calibration_scores'].apply(lambda x: np.mean(x) if x else None))
+        print(results_df['max_topic_calibration'].apply(lambda x: np.mean(x) if x else None))
         
         print("\nMinimum Topic Calibration Values:")
-        print(results_df['min_topic_calibration_scores'].apply(lambda x: np.mean(x) if x else None))
+        print(results_df['min_topic_calibration'].apply(lambda x: np.mean(x) if x else None))
         
         # Calculate and print improvement percentages
         print("\nPotential Improvement Percentage in Topic Calibration:")
         for recommender in recommenders:
-            orig_values = results_df['original_topic_calibration_scores'][recommender]
-            max_values = results_df['max_topic_calibration_scores'][recommender]
+            orig_values = results_df['original_topic_calibration'][recommender]
+            max_values = results_df['max_topic_calibration'][recommender]
             
             valid_pairs = [(orig, max_) for orig, max_ in zip(orig_values, max_values) if orig is not None and max_ is not None]
             
@@ -283,8 +283,8 @@ def main():
         # Calculate and print degradation percentages
         print("\nPotential Degradation Percentage in Topic Calibration:")
         for recommender in recommenders:
-            orig_values = results_df['original_topic_calibration_scores'][recommender]
-            min_values = results_df['min_topic_calibration_scores'][recommender]
+            orig_values = results_df['original_topic_calibration'][recommender]
+            min_values = results_df['min_topic_calibration'][recommender]
             
             valid_pairs = [(orig, min_) for orig, min_ in zip(orig_values, min_values) if orig is not None and min_ is not None]
             
