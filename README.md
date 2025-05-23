@@ -19,7 +19,9 @@ You can consider a maximum number of behaviors (e.g. 1000) by running ```python 
 
 #### Include greedy ranking
 
-Run ```python compute_radio.py --dataset 'mind' --greedy``` or ```python compute_radio.py --dataset 'ebnerd' --greedy```
+Run ```python compute_radio.py --dataset 'mind' --max-behaviors 1000 --greedy``` or ```python compute_radio.py --dataset 'ebnerd' --max-behaviors 1000 --greedy```
+
+Be aware of the fact that greedy ranking is computationally expensive, and that running it on the full dataset is not feasible.
 
 #### Analysis of Different User Samples
 

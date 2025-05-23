@@ -33,17 +33,17 @@ def process_articles(articles, model_name):
     news_ids = list(articles.keys())
     news_texts = [articles[news_id]["title"] + " " + articles[news_id]["abstract"] for news_id in news_ids]
 
-    # Get sentence transformer embeddings
-    st_model = SentenceTransformer(model_name)
-    st_embeddings = st_model.encode(news_texts, convert_to_numpy=True, show_progress_bar=True)
-    for idx, news_id in enumerate(news_ids):
-        articles[news_id]['st_vector'] = st_embeddings[idx]
+    # # Get sentence transformer embeddings
+    # st_model = SentenceTransformer(model_name)
+    # st_embeddings = st_model.encode(news_texts, convert_to_numpy=True, show_progress_bar=True)
+    # for idx, news_id in enumerate(news_ids):
+    #     articles[news_id]['st_vector'] = st_embeddings[idx]
 
-    # Get TF-IDF vectors
-    vectorizer = TfidfVectorizer()
-    tfidf_matrix = vectorizer.fit_transform(news_texts)
-    for idx, news_id in enumerate(news_ids):
-        articles[news_id]['tfidf_vector'] = tfidf_matrix[idx]
+    # # Get TF-IDF vectors
+    # vectorizer = TfidfVectorizer()
+    # tfidf_matrix = vectorizer.fit_transform(news_texts)
+    # for idx, news_id in enumerate(news_ids):
+    #     articles[news_id]['tfidf_vector'] = tfidf_matrix[idx]
 
     return articles
 

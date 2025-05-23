@@ -63,7 +63,7 @@ def process_recommendation(recommender, recommendations, candidate_articles, use
             )
             if subtopic_divergence:
                 results['subtopic_calibration'] = subtopic_divergence[0][1]
-    
+
     # Calculate max/min topic calibration if greedy re-ranking is enabled
     if enable_greedy:
         max_calibration_score = greedy_optimize_topic_calibration(
@@ -76,21 +76,22 @@ def process_recommendation(recommender, recommendations, candidate_articles, use
         )
         
         results.update({
-            'max_calibration_score': max_calibration_score,
-            'min_calibration_score': min_calibration_score
+            'original_topic_calibration': results['topic_calibration'],
+            'max_topic_calibration': max_calibration_score,
+            'min_topic_calibration': min_calibration_score
         })
     
     # Calculate diversity metrics
     if len(recommendation_articles) > 0:
         # TF-IDF ILD
-        tfidf_ild_value = metrics['ild'].calculate_ild(recommendation_articles, representation='tfidf')
-        if tfidf_ild_value:
-            results['tf_idf_ild'] = tfidf_ild_value
+        # tfidf_ild_value = metrics['ild'].calculate_ild(recommendation_articles, representation='tfidf')
+        # if tfidf_ild_value:
+        #     results['tf_idf_ild'] = tfidf_ild_value
             
-        # Sentence Transformer ILD
-        sentbert_ild_value = metrics['ild'].calculate_ild(recommendation_articles, representation='st')
-        if sentbert_ild_value:
-            results['sentbert_ild'] = float(sentbert_ild_value)
+        # # Sentence Transformer ILD
+        # sentbert_ild_value = metrics['ild'].calculate_ild(recommendation_articles, representation='st')
+        # if sentbert_ild_value:
+        #     results['sentbert_ild'] = float(sentbert_ild_value)
             
         # Gini coefficient
         gini_coefficient = metrics['gini'].calculate_list_gini(recommendation_articles, key="category")
@@ -159,25 +160,25 @@ def main():
     
     # Initialize results dictionary
     results = {
-        "topic_calibrations": {r: [] for r in recommenders},
-        "subtopic_calibrations": {r: [] for r in recommenders},
-        "complexity_calibrations": {r: [] for r in recommenders},
-        "fragmentations": {r: [] for r in recommenders},
-        "activations": {r: [] for r in recommenders},
-        "representations": {r: [] for r in recommenders},
+        "topic_calibration": {r: [] for r in recommenders},
+        "subtopic_calibration": {r: [] for r in recommenders},
+        "complexity_calibration": {r: [] for r in recommenders},
+        "fragmentation": {r: [] for r in recommenders},
+        "activation": {r: [] for r in recommenders},
+        "representation": {r: [] for r in recommenders},
         "alternative_voices": {r: [] for r in recommenders},
-        "tf_idf_ild_values": {r: [] for r in recommenders},
-        "sentbert_ild_values": {r: [] for r in recommenders},
-        "gini_values": {r: [] for r in recommenders},
+        "tf_idf_ild": {r: [] for r in recommenders},
+        "sentbert_ild": {r: [] for r in recommenders},
+        "gini": {r: [] for r in recommenders},
         "ndcg_values": {r: [] for r in recommenders},
-        "original_topic_calibration_scores": {r: [] for r in recommenders}
+        "original_topic_calibration": {r: [] for r in recommenders}
     }
     
     # Add greedy re-ranking metrics if enabled
     if enable_greedy:
         results.update({
-            "max_topic_calibration_scores": {r: [] for r in recommenders},
-            "min_topic_calibration_scores": {r: [] for r in recommenders}
+            "max_topic_calibration": {r: [] for r in recommenders},
+            "min_topic_calibration": {r: [] for r in recommenders}
         })
     
     # Process each behavior
@@ -245,15 +246,22 @@ def main():
     # Print summary statistics
     print("\nNDCG Values:")
     print(results_df['ndcg_values'].apply(lambda x: np.mean(x)))
-    
-    print("\nOriginal Topic Calibration Values (higher is better):")
-    print(results_df['original_topic_calibration_scores'].apply(lambda x: np.mean(x) if x else None))
-    
+
+    print("\nTopic Calibration Values:")
+    print(results_df['topic_calibration'].apply(lambda x: np.mean(x)))
+
+    print("\nSubtopic Calibration Values:")
+    print(results_df['subtopic_calibration'].apply(lambda x: np.mean(x)))
+
     if enable_greedy:
-        print("\nMaximum Topic Calibration Values (higher is better):")
+
+        print("\nOriginal Topic Calibration Values:")
+        print(results_df['original_topic_calibration_scores'].apply(lambda x: np.mean(x) if x else None))
+
+        print("\nMaximum Topic Calibration Values:")
         print(results_df['max_topic_calibration_scores'].apply(lambda x: np.mean(x) if x else None))
         
-        print("\nMinimum Topic Calibration Values (lower is worse):")
+        print("\nMinimum Topic Calibration Values:")
         print(results_df['min_topic_calibration_scores'].apply(lambda x: np.mean(x) if x else None))
         
         # Calculate and print improvement percentages
