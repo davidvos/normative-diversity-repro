@@ -7,6 +7,7 @@ DATASET_CONFIG = {
         "news_path": Path("data/mind/val/news.tsv"),
         "entity_embedding_path": Path("data/mind/val/entity_embedding.vec"),
         "relation_embedding_path": Path("data/mind/val/relation_embedding.vec"),
+        "articles_path": Path("data/mind/articles_mind.pickle"),
         "processed_articles_cache": Path("data/mind/articles_mind_processed.pkl"),
         "model_name": "all-MiniLM-L6-v2",
         "recommenders": ["lstur", "naml", "npa", "nrms", "pop", "random"],

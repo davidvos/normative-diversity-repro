@@ -8,8 +8,8 @@ This repository contains the supporting material for the paper 'A Study of Norma
 2. Open your Terminal in the directory of this repository.
 3. Install the package in editable mode: ```pip install -e .```
 4. Run ```mkdir data``` and ```mkdir results```.
-5. [Download the Data & Results files here](https://www.dropbox.com/scl/fi/6uj6e3ji7kn8zkq4sr6s7/data_results.zip?rlkey=xrrrbgmy457bz45rcgu8434oc&st=0nt8y8ht&dl=0)
-6. Unzip the downloaded file, and move its contents to the ```data/``` and ```results/``` folders.
+5. [Download the Data files here](https://drive.google.com/file/d/1bqKfXv2-nR7v1ve8Qqilkp-9-JRrym3T/view?usp=drive_link)
+6. Unzip the downloaded file, and move its contents to the ```data/``` folder.
 
 #### RADio on MIND or EBNeRD
 
@@ -41,7 +41,7 @@ Activation can now draw from either the dataset-specific lexicon sentiment (`sen
 
 #### Analysis of Different User Samples
 
-```notebooks/MIND Results.ipynb``` and ```notebooks/EBNeRD Results.ipynb``` are notebooks containing code to process the results, do significance testing and visualize distributions of the metrics.
+```notebooks/MIND Results.ipynb```, ```notebooks/EBNeRD Results.ipynb``` and ```notebooks/Adressa Results.ipynb``` are notebooks containing code to process the results, do significance testing and visualize distributions of the metrics.
 
 ```notebooks/MIND Analysis.ipynb``` and ```notebooks/EBNeRD Analysis.ipynb``` are notebooks containing the code to plot figures of the distribution of article attributes in recommendations.
 
@@ -49,8 +49,8 @@ Activation can now draw from either the dataset-specific lexicon sentiment (`sen
 
 By downloading the files in the 'Get Started' section, you have access to all data and recommendations necessary to run our experiments. If you want to generate the recommendation sets yourself, you can follow these instructions.
 
-1. Download the MIND and EBNeRD datasets from the [MIND](https://msnews.github.io/) and [EBNeRD](https://recsys.eb.dk/) repositories.
-2. Run ```python scripts/generate_baselines_mind.py``` and ```python scripts/generate_baselines_ebnerd.py```
+1. Download the MIND and EBNeRD datasets from the [MIND](https://msnews.github.io/) and [EBNeRD](https://recsys.eb.dk/) repositories. Access to Adressa dataset requires an agreement with the provider.
+2. Run ```python scripts/generate_baselines_mind.py```, ```python scripts/generate_baselines_ebnerd.py``` and ```python scripts/generate_baselines_adressa.py```
 3. Use the [Recommenders Team](https://github.com/recommenders-team/recommenders) repository to train the NAML, NPA, NRMS and LSTUR models
-4. Use the trained models to generate recommendations for the corresponding files in ```data/mind/MINDlarge_dev``` and ```data/ebnerd/val```
-5. Run ```python scripts/preprocess_ebnerd_news.py``` to preprocess the EBNeRD news data. 
+4. Use the trained models to generate recommendations for the corresponding files in ```data/mind/MINDlarge_dev```, ```data/ebnerd/val``` and ```data/adressa/val```
+5. Run ```python scripts/preprocess_mind_news.py```, ```python scripts/preprocess_ebnerd_news.py``` and ```python scripts/preprocess_adressa_news.py``` to preprocess the news data. 
