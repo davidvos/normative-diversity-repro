@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "normative_diversity"
+version = "0.1.0"
+description = "Reproduction code for 'Examining Sensitivity and Representativeness of Normative Diversity Metrics'"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "tqdm",
+    "sentence-transformers",
+    "textstat",
+    "torch",
+    "transformers",
+    "scipy",
+    "afinn",
+    "altair",
+    "vl-convert-python",
+    "pyarrow",
+    "ipykernel",
+    "vegafusion",
+    "matplotlib",
+    "seaborn"
+]
+
+[project.scripts]
+compute_radio = "scripts.compute_radio:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
