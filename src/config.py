@@ -22,6 +22,7 @@ DATASET_CONFIG = {
     "adressa": {
         "behaviors_path": Path("data/adressa/val/behaviors.tsv"),
         "news_path": Path("data/adressa/val/news.tsv"),
+        "articles_path": Path("data/adressa/articles_adressa.pickle"),
         "processed_articles_cache": Path("data/adressa/articles_adressa_processed.pkl"),
         "model_name": "all-MiniLM-L6-v2",
         "recommenders": ["lstur", "naml", "npa", "nrms", "pop", "random"],

@@ -296,12 +296,11 @@ if __name__ == "__main__":
             use_predicted_relevance=args.use_predicted_relevance
         )
         print(df)
-        if args.output_suffix:
-            suffix = f"_{args.output_suffix.strip().replace(' ', '_')}" if args.output_suffix.strip() else ""
-            df.to_csv(OUTPUT_FOLDER / f"{ds}_results{suffix}.csv")
-            for metric, data in tradeoffs.items():
-                rows = []
-                for lam, rec_data in data.items():
-                    for rec, vals in rec_data.items():
-                        rows.append({"lambda": lam, "recommender": rec, "ndcg": np.mean(vals["ndcg"]), "divergence": np.mean(vals["divergence"])})
-                pd.DataFrame(rows).to_csv(OUTPUT_FOLDER / f"{ds}_{metric}_tradeoff{suffix}.csv", index=False)
+        suffix = f"_{args.output_suffix.strip().replace(' ', '_')}" if args.output_suffix.strip() else ""
+        df.to_csv(OUTPUT_FOLDER / f"{ds}_results{suffix}.csv")
+        for metric, data in tradeoffs.items():
+            rows = []
+            for lam, rec_data in data.items():
+                for rec, vals in rec_data.items():
+                    rows.append({"lambda": lam, "recommender": rec, "ndcg": np.mean(vals["ndcg"]), "divergence": np.mean(vals["divergence"])})
+            pd.DataFrame(rows).to_csv(OUTPUT_FOLDER / f"{ds}_{metric}_tradeoff{suffix}.csv", index=False)

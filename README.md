@@ -1,4 +1,4 @@
-# Examining Sensitivity and Representativeness of Normative Diversity Metrics
+# A Study of Normative Diversity Metrics in News Recommendations
 
 This repository contains the supporting material for the paper 'A Study of Normative Diversity Metrics in News Recommendations'. We reproduce the paper 'RADio* – An Introduction to Measuring Normative Diversity in News Recommendations'. The code in the 'dart/' folder comes from the original RADio implementation, [that can be found here](https://github.com/svrijenhoek/RADio). 
 
@@ -23,7 +23,7 @@ Be aware of the fact that greedy ranking is computationally expensive, and that 
 
 #### Complexity Calibration Variants
 
-Each dataset now stores two complexity signals per article: a readability score (Flesch–Kincaid for MIND, LIX for EBNeRD/Adressa) and a lexical richness score (MTLD). `scripts/compute_radio.py` and `scripts/evaluate_production_reranker.py` default to the readability signal, but you can switch to lexical richness via `--complexity-source mtld`.
+Each dataset now stores two complexity signals per article: a readability score (Flesch–Kincaid for MIND, LIX for EBNeRD/Adressa) and a lexical richness score (MTLD). `scripts/compute_radio.py` defaults to the readability signal, but you can switch to lexical richness via `--complexity-source mtld`.
 
 To compute both complexity variants in a single pass, set `--complexity-source both`. The script will run twice per dataset (readability + MTLD) and automatically append `_readability`/`_mtld` to the output filenames (after any custom suffix you provide). You can also supply `--output-suffix _experiment` to tag all generated files when running individual configurations.
 
@@ -33,17 +33,17 @@ When you only care about a single metric and want to evaluate every design choic
 
 #### Story Clustering Thresholds
 
-Fragmentation relies on TF-IDF story clustering with cosine similarity thresholds of 0.1, 0.2, 0.3, 0.4, or 0.5 (and a 3-day time window). Choose the desired granularity via `--story-threshold` when running `scripts/compute_radio.py` or `scripts/evaluate_production_reranker.py`. EBNeRD additionally keeps the dataset-provided `topics` label in `story_topics` (and `story_dataset`), and Fragmentation sweeps now include a `story_threshold=dataset` variant that evaluates those original groupings alongside the TF-IDF thresholds.
+Fragmentation relies on TF-IDF story clustering with cosine similarity thresholds of 0.1, 0.2, 0.3, 0.4, or 0.5 (and a 3-day time window). Choose the desired granularity via `--story-threshold` when running `scripts/compute_radio.py`. EBNeRD additionally keeps the dataset-provided `topics` label in `story_topics` (and `story_dataset`), and Fragmentation sweeps now include a `story_threshold=dataset` variant that evaluates those original groupings alongside the TF-IDF thresholds.
 
 #### Sentiment Estimation Variants
 
-Activation can now draw from either the dataset-specific lexicon sentiment (`sentiment_lexicon`) or a contextual multilingual transformer score (`cardiffnlp/twitter-xlm-roberta-base-sentiment`). Both columns are generated during preprocessing, so you can switch at runtime with `--sentiment-source {lexicon,transformer}` on `scripts/compute_radio.py` or `scripts/evaluate_production_reranker.py`. EBNeRD additionally ships a `sentiment_score` field, exposed as `sentiment_dataset`, so activation sweeps include a `dataset` option only for EBNeRD.
+Activation can now draw from either the dataset-specific lexicon sentiment (`sentiment_lexicon`) or a contextual multilingual transformer score (`cardiffnlp/twitter-xlm-roberta-base-sentiment`). Both columns are generated during preprocessing, so you can switch at runtime with `--sentiment-source {lexicon,transformer}` on `scripts/compute_radio.py`. EBNeRD additionally ships a `sentiment_score` field, exposed as `sentiment_dataset`, so activation sweeps include a `dataset` option only for EBNeRD.
 
 #### Analysis of Different User Samples
 
-```notebooks/MIND_Results.ipynb``` and ```notebooks/EBNeRD_Results.ipynb``` are notebooks containing code to process the results, do significance testing and visualize distributions of the metrics.
+```notebooks/MIND Results.ipynb``` and ```notebooks/EBNeRD Results.ipynb``` are notebooks containing code to process the results, do significance testing and visualize distributions of the metrics.
 
-```notebooks/MIND_Analysis.ipynb``` and ```notebooks/EBNeRD_Analysis.ipynb``` are notebooks containing the code to plot figures of the distribution of article attributes in recommendations.
+```notebooks/MIND Analysis.ipynb``` and ```notebooks/EBNeRD Analysis.ipynb``` are notebooks containing the code to plot figures of the distribution of article attributes in recommendations.
 
 ## Data Generation
 
@@ -54,73 +54,3 @@ By downloading the files in the 'Get Started' section, you have access to all da
 3. Use the [Recommenders Team](https://github.com/recommenders-team/recommenders) repository to train the NAML, NPA, NRMS and LSTUR models
 4. Use the trained models to generate recommendations for the corresponding files in ```data/mind/MINDlarge_dev``` and ```data/ebnerd/val```
 5. Run ```python scripts/preprocess_ebnerd_news.py``` to preprocess the EBNeRD news data. 
-
-# Additional Results
-
-## Figures
-
-### MIND Attribute Counts
-
-<div>
-    <img src="results/mind_categories.png">
-    <img src="results/mind_subcategories.png">
-    <img src="results/mind_activations.png">
-</div>
-
-### EBNeRD Attribute Counts
-
-<div>
-    <img src="results/ebnerd_categories.png">
-    <img src="results/ebnerd_subcategories.png">
-    <img src="results/ebnerd_activations.png">
-</div>
-
-### MIND Distributions
-
-<div>
-    <img src="results/mind_topic_calibrations_distributions.png">
-    <img src="results/mind_subtopic_calibrations_distributions.png">
-    <img src="results/mind_activations_distributions.png">
-</div>
-
-### EBNeRD Distributions
-
-<div>
-    <img src="results/ebnerd_topic_calibration_distributions.png">
-    <img src="results/ebnerd_topic_subcalibration_distributions.png">
-    <img src="results/ebnerd_activation_distributions.png">
-</div>
-
-### MIND Convergences
-
-<div>
-    <img src="results/mind_converging_topic_calibrations.png">
-    <img src="results/mind_converging_subtopic_calibrations.png">
-    <img src="results/mind_converging_complexity_calibrations.png">
-    <img src="results/mind_converging_activations.png">
-    <img src="results/mind_converging_tf_idf_ild_values.png">
-    <img src="results/mind_converging_sentbert_ild_values.png">
-    <img src="results/mind_converging_gini_values.png">
-    <img src="results/mind_converging_ndcg_values.png">
-</div>
-
-### EBNeRD Convergences
-
-<div>
-    <img src="results/ebnerd_converging_topic_calibrations.png">
-    <img src="results/ebnerd_converging_subtopic_calibrations.png">
-    <img src="results/ebnerd_converging_complexity_calibrations.png">
-    <img src="results/ebnerd_converging_activations.png">
-    <img src="results/ebnerd_converging_tf_idf_ild_values.png">
-    <img src="results/ebnerd_converging_sentbert_ild_values.png">
-    <img src="results/ebnerd_converging_gini_values.png">
-    <img src="results/ebnerd_converging_ndcg_values.png">
-</div>
-
-## Results on sample of MIND with available body texts
-
-|                  |   topic_calibrations |   complexity_calibrations |   fragmentations |   activations |   representations |   ndcg_values |
-|:-----------------|---------------------:|--------------------------:|-----------------:|--------------:|------------------:|--------------:|
-| **Popular**              |             0.613066 |                  0.47361  |         0.591352 |      0.279849 |          0.232561 |      0.226078 |
-| **Random**           |             0.612829 |                  0.473121 |         0.574202 |      0.280122 |          0.236508 |      0.230426 |
-| **Original Random** |             0.629983 |                  0.499395 |         0.583904 |      0.319876 |          0.268683 |      0.228604 |

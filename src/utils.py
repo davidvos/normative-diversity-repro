@@ -466,7 +466,7 @@ def load_dataset(dataset, config):
         articles['subcategory'] = articles['subcategory'].fillna('other').astype(str)
 
     elif dataset == 'adressa':
-        behavior_pattern = dataset_config['behaviors_path']
+        behavior_pattern = str(dataset_config['behaviors_path'])
         behavior_files = sorted(glob.glob(behavior_pattern))
         if not behavior_files:
             raise FileNotFoundError(f"No behavior files found for pattern: {behavior_pattern}")
