@@ -100,9 +100,17 @@ python scripts/compute_radio.py --dataset mind --max-behaviors 1000 --tradeoff-l
 *   `--tradeoff-lambdas`: Comma-separated list of lambda values (e.g., `"0.0,0.1,0.5,1.0"`).
 *   `--rerank-all`: If set, re-ranks the entire candidate list instead of just the top-k.
 
+### Production Reranker Simulation
+
+To simulate a "production" reranker that uses predicted relevance scores (from the base recommender) instead of ground truth labels for the optimization, add the `--use-predicted-relevance` flag. This is useful for evaluating how the reranker would perform in a real-world setting where ground truth is unknown at inference time.
+
+```bash
+# Example: Production reranker simulation
+python scripts/compute_radio.py --dataset mind --max-behaviors 1000 --tradeoff-lambdas "0.0,0.5" --use-predicted-relevance
+```
+
 ## 5. Analysis
 
 We provide notebooks to analyze and visualize the results:
 
 *   `notebooks/MIND Results.ipynb`, `notebooks/EBNeRD Results.ipynb`, `notebooks/Adressa Results.ipynb`: Process results, perform significance testing, and visualize metric distributions.
-*   `notebooks/MIND Analysis.ipynb`, `notebooks/EBNeRD Analysis.ipynb`: Plot distributions of article attributes (e.g., sentiment, complexity) in recommendations.
