@@ -6,7 +6,7 @@ This repository contains the supporting material for the paper 'A Study of Norma
 
 1.  **Clone this repository**:
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/davidvos/normative-diversity-repro.git
     cd normative-diversity-repro
     ```
 
@@ -48,7 +48,7 @@ If you prefer to generate the data yourself:
 1.  **Download Raw Data**:
     *   **MIND**: Download from [MIND News Dataset](https://msnews.github.io/).
     *   **EBNeRD**: Download from [EBNeRD RecSys](https://recsys.eb.dk/).
-    *   **Adressa**: Access requires an agreement with the provider.
+    *   **Adressa**: Download from [Adressa News Dataset](https://reclab.idi.ntnu.no/dataset/).
 
 2.  **Generate Baselines**:
     Run the generation scripts to create baseline recommendations and files.
@@ -88,6 +88,24 @@ python scripts/compute_radio.py --dataset adressa --max-behaviors 1000
 *   `--max-behaviors`: Limit the number of user behaviors to process (useful for testing). Default is `-1` (all).
 *   `--metric`: Specific metric to compute (e.g., `activation`, `fragmentation`). Default is `all`.
 
+### Metric Configuration
+
+You can customize how specific metrics are calculated using the following flags:
+
+*   **Complexity**: `--complexity-source {readability,mtld,both}`
+    *   `readability`: Uses Flesch–Kincaid (MIND) or LIX (EBNeRD/Adressa). (Default)
+    *   `mtld`: Uses lexical richness (MTLD).
+    *   `both`: Computes both variants sequentially.
+
+*   **Fragmentation**: `--story-threshold {0.1,0.2,0.3,0.4,0.5}`
+    *   Sets the cosine similarity threshold for TF-IDF story clustering.
+    *   Higher values result in more granular stories.
+
+*   **Activation**: `--sentiment-source {lexicon,transformer,dataset}`
+    *   `lexicon`: Uses dataset-specific lexicon sentiment. (Default)
+    *   `transformer`: Uses a contextual multilingual transformer score.
+    *   `dataset`: Uses the dataset's provided sentiment score (EBNeRD only).
+
 ## 4. Running with Re-rankers (Trade-offs)
 
 To evaluate how re-ranking affects diversity metrics (trade-off curves), use the `--tradeoff-lambdas` flag. This will re-rank the top-k recommendations based on a linear combination of relevance and the diversity metric.
@@ -108,8 +126,6 @@ To simulate a "production" reranker that uses predicted relevance scores (from t
 # Example: Production reranker simulation
 python scripts/compute_radio.py --dataset mind --max-behaviors 1000 --tradeoff-lambdas "0.0,0.5" --use-predicted-relevance
 ```
-
-
 
 ## 5. Analysis
 
